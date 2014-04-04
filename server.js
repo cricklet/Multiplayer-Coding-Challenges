@@ -58,7 +58,7 @@ function startLobbyCountDown() {
 }
 
 function startGame() {
-  var counter = 120;
+  var counter = 5;
   var leaderboard = calculateLeaderboard();
   var gameCountdown = setInterval(function () {
     broadcast({ type: 'gameCountDown', counter: counter--, leaderboard: leaderboard });

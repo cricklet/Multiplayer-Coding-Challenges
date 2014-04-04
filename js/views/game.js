@@ -11,6 +11,10 @@ var Game = Backbone.View.extend({
     '  <div class="grid-col-2 grid-col--align-right grid-col--no-spacing grid-col--align-center"><small>POINTS</small></div>' +
     '</div>' +
     '<article class="js-problem grid-col-12 grid-row color-scheme--grey"></article>' +
+    '</div>' +
+    '<div class="grid-col-4 grid-row js-right-container">' +
+    '<div class="js-leaderboard grid-col-12 grid-row padding-bottom--none color-scheme--grey">' +
+    '</div>' +
     '</div>'
 
 , initialize: function () {
@@ -27,6 +31,7 @@ var Game = Backbone.View.extend({
 
     this._renderStats();
     this._renderProblem();
+    this._renderLeaderboard();
     this._updateStats();
 
     return this;
@@ -36,10 +41,20 @@ var Game = Backbone.View.extend({
     this.stats.set(this.hearts, this.correct, this.seconds);
   }
 
+, _updateLeaderboard: function (data) {
+    this.leaderboard.update(data);
+  }
+
 , _renderStats: function () {
     this.stats = new Stats({
       el: $('.js-stats')
     }).render();
+  }
+
+, _renderLeaderboard: function () {
+    this.leaderboard = new Leaderboard({
+      el: $('.js-leaderboard')
+    });
   }
 
 , _renderProblem: function () {
@@ -64,6 +79,7 @@ var Game = Backbone.View.extend({
 
 , update: function (data) {
     this.seconds = data.counter;
+    this._updateLeaderboard(data.leaderboard);
     this._updateStats();
   }
 

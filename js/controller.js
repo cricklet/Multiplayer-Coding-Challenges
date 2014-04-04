@@ -36,15 +36,22 @@ $(document).ready(function () {
     game = new Game({
       el: $el
     }).render();
+
+    game.on('user', function (data) {
+      sendData('user', data);
+    });
   }
 
   var endGame = function () {
+    var correct = game.correct;
+
     $el.empty();
     lobby = null;
     game = null;
 
     end = new End({
-      el: $el
+      el:      $el
+    , correct: correct
     }).render();
   }
 
